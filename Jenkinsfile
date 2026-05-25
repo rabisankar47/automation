@@ -13,18 +13,30 @@ pipeline {
             }
         }
 
-        stage('Run ETL File') {
+        stage('Build Docker Image') {
             steps {
-                bat "${env.PYTHON} etl.py"
+                bat 'docker build -t etl-app .'
+            }
+        }
+
+        stage('Stop Old Container') {
+            steps {
+                bat 'docker stop etl-container || exit 0'
+                bat 'docker rm etl-container || exit 0'
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                bat 'docker run -d -p 8501:8501 --name etl-container etl-app'
             }
         }
 
     }
-
     post {
 
         success {
-            echo 'Pipeline executed successfully.'
+            echo 'Docker deployment successfully.'
         }
 
         failure {
