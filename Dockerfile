@@ -3,4 +3,4 @@ RUN pip install streamlit
 WORKDIR /var
 COPY etl.py .
 EXPOSE 8501
-CMD ["streamlit", "run", "etl.py", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "etl.py"]
