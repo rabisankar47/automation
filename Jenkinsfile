@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Create Docker Image') {
             steps {
                 bat 'docker build -t etl-app .'
             }
