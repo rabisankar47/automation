@@ -19,13 +19,7 @@ pipeline {
             }
         }
 
-        stage('Stop Old Container') {
-            steps {
-                bat 'docker stop etl-container || exit 0'
-                bat 'docker rm etl-container || exit 0'
-            }
-        }
-
+        
         stage('Run Docker Container') {
             steps {
                 bat 'docker run -d -p 8501:8501 --name etl-container etl-app'
